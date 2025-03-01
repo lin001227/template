@@ -1,0 +1,83 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('@/assets/login/login-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* 登录卡片 */
+.login-card {
+  width: 500px;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.6); /* 半透明背景 */
+  backdrop-filter: blur(10px); /* 高斯模糊效果 */
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  position: relative; /* 相对定位 */
+}
+
+/* 中英文切换按钮 */
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+/* 系统名称 */
+.system-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.system-title .title-icon {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.system-title h1 {
+  height: 40px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  background: linear-gradient(90deg, #a2f3a6, #0e29c4);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 10px;
+}
+
+.system-title p {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 登录标题 */
+.login-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* 验证码输入容器 */
+.captcha-input-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.captcha-image {
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+}
+
+/* 隐藏必填项红色 * */
+:deep(.arco-form-item-label-required-symbol) {
+  display: none;
+}
