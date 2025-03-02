@@ -67,15 +67,17 @@
   import { ref, reactive } from 'vue';
   import { useI18n } from 'vue-i18n';
   import { Message } from '@arco-design/web-vue'; // 引入 Message 组件
-  import { login, getUserInfo } from '@/api/auth';
+  import { useUserStore } from '@/store/modules/userStore'; // 引入 userStore
+
   const { t, locale } = useI18n();
   const formRef = ref(); // 表单实例
+  const userStore = useUserStore(); // 使用 userStore
 
   // 表单数据
   const form = reactive({
     username: 'admin',
     password: '123456',
-    captcha: '12345',
+    captcha: '1234',
   });
 
   // 验证码图片路径
@@ -85,16 +87,17 @@
   const handleSubmit = async ({ errors, values }) => {
     if (!errors) {
       try {
-        const res = await login(form);
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      } finally {
+        await userStore.login(form); // 调用 userStore 的登录方法
+        // 登录成功后跳转到首页或其他页面
+        // router.push('/');
+      } catch (error) {
+        console.log(error);
       }
     } else {
-      Message.error('请填写完整信息!');
+      Message.error(t('login.formErrorMessage')); // 表单验证失败提示
     }
   };
+
   // 刷新验证码逻辑
   const refreshCaptcha = () => {
     // 刷新验证码
@@ -103,7 +106,9 @@
 
   // 切换语言
   const toggleLanguage = () => {
-    locale.value = locale.value === 'zh_CN' ? 'en_US' : 'zh_CN';
+    const newLang = locale.value === 'zh_CN' ? 'en_US' : 'zh_CN'; // 切换语言
+    locale.value = newLang; // 更新 vue-i18n 的语言
+    userStore.setLanguage(newLang); // 更新 userStore 中的语言状态
   };
 </script>
 

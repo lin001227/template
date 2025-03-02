@@ -22,7 +22,7 @@ const loadLocaleMessages = () => {
 // 创建 i18n 实例
 const i18n = createI18n({
   legacy: false, // 使用 Composition API 模式
-  locale: 'zh_CN', // 默认语言
+  locale: 'zh_CN', // 默认语言，稍后在 Vue 应用中更新
   fallbackLocale: 'en_US', // 回退语言
   messages: loadLocaleMessages(), // 加载语言文件
 });

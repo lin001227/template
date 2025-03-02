@@ -33,8 +33,8 @@ Mock.mock('/api/login', 'post', (req) => {
 
 // 获取用户信息接口
 Mock.mock('/api/user/info', 'get', (req) => {
-  const token = req.headers?.authorization?.split(' ')[1]; // 从请求头中获取 token
-
+  const token = localStorage.getItem('token');
+  console.log(token);
   // 模拟用户数据
   const users = [
     { token: 'admin-token', username: 'admin', role: 'admin' },
@@ -42,7 +42,7 @@ Mock.mock('/api/user/info', 'get', (req) => {
   ];
 
   // 查找匹配的用户
-  const user = users.find((u) => u.token === token);
+  const user = users.find((u) => u.username === 'admin');
 
   if (user) {
     return Mock.mock({
