@@ -7,6 +7,11 @@ const routes = [
     name: 'Login',
     component: Login,
   },
+  {
+    path: '/home',
+    name: 'Home',
+    component: () => import('@/layout/index.vue'),
+  },
   // 其他路由...
 ];
 

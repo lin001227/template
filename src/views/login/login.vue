@@ -68,6 +68,7 @@
   import { useI18n } from 'vue-i18n';
   import { Message } from '@arco-design/web-vue'; // 引入 Message 组件
   import { useUserStore } from '@/store/modules/userStore'; // 引入 userStore
+  import router from '@/router';
 
   const { t, locale } = useI18n();
   const formRef = ref(); // 表单实例
@@ -89,7 +90,7 @@
       try {
         await userStore.login(form); // 调用 userStore 的登录方法
         // 登录成功后跳转到首页或其他页面
-        // router.push('/');
+        router.push('/home');
       } catch (error) {
         console.log(error);
       }
