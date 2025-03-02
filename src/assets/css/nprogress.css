@@ -1,0 +1,35 @@
+#nprogress .bar {
+  background: #1890ff; /* 进度条颜色 */
+  height: 3px; /* 进度条高度 */
+}
+
+#nprogress .peg {
+  box-shadow:
+    0 0 10px #1890ff,
+    0 0 5px #1890ff; /* 阴影颜色与主色一致 */
+}
+
+#nprogress .spinner {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#nprogress .spinner-icon {
+  width: 24px;
+  height: 24px;
+  border: solid 3px transparent;
+  border-top-color: #42b983; /* 顶部颜色 */
+  border-left-color: #42b983; /* 左侧颜色 */
+  border-radius: 50%;
+  animation: nprogress-spinner 0.6s linear infinite;
+}
+
+@keyframes nprogress-spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -21,9 +21,9 @@
 
       <!-- 登录表单 -->
       <h2 class="login-title">{{ $t('login.loginTitle') }}</h2>
-      <a-form :model="form" @submit="handleSubmit" size="large" layout="horizontal" auto-label-width>
+      <a-form :model="form" @submit="handleSubmit" size="large" layout="horizontal" ref="formRef" auto-label-width>
         <!-- 用户名输入 -->
-        <a-form-item field="username" :rules="[{ required: true, message: $t('login.usernamePlaceholder') }]">
+        <a-form-item field="username" :rules="[{ required: true, message: $t('login.usernameErrorMessage') }]">
           <a-input v-model="form.username" :placeholder="$t('login.usernamePlaceholder')" :style="{ width: '100%', height: '40px' }">
             <template #prefix>
               <icon-user />
@@ -32,7 +32,7 @@
         </a-form-item>
 
         <!-- 密码输入 -->
-        <a-form-item field="password" :rules="[{ required: true, message: $t('login.passwordPlaceholder') }]">
+        <a-form-item field="password" :rules="[{ required: true, message: $t('login.passwordErrorMessage') }]">
           <a-input-password v-model="form.password" :placeholder="$t('login.passwordPlaceholder')" :style="{ width: '100%', height: '40px' }">
             <template #prefix>
               <icon-lock />
@@ -41,7 +41,7 @@
         </a-form-item>
 
         <!-- 验证码输入 -->
-        <a-form-item field="captcha" :rules="[{ required: true, message: $t('login.captchaPlaceholder') }]">
+        <a-form-item field="captcha" :rules="[{ required: true, message: $t('login.captchaErrorMessage') }]">
           <div class="captcha-input-container">
             <a-input v-model="form.captcha" :placeholder="$t('login.captchaPlaceholder')" :style="{ width: '70%', height: '40px' }">
               <template #prefix>
@@ -64,29 +64,41 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+  import { ref, reactive } from 'vue';
   import { useI18n } from 'vue-i18n';
-
+  import { Message } from '@arco-design/web-vue'; // 引入 Message 组件
+  import { login, getUserInfo } from '@/api/auth';
   const { t, locale } = useI18n();
+  const formRef = ref(); // 表单实例
 
   // 表单数据
-  const form = ref({
-    username: '',
-    password: '',
-    captcha: '',
+  const form = reactive({
+    username: 'admin',
+    password: '123456',
+    captcha: '12345',
   });
 
   // 验证码图片路径
   const captchaImage = ref('path/to/captcha/image');
 
   // 处理登录逻辑
-  const handleSubmit = () => {
-    // 登录逻辑
+  const handleSubmit = async ({ errors, values }) => {
+    if (!errors) {
+      try {
+        const res = await login(form);
+        console.log(res);
+      } catch (err) {
+        console.log(err);
+      } finally {
+      }
+    } else {
+      Message.error('请填写完整信息!');
+    }
   };
-
   // 刷新验证码逻辑
   const refreshCaptcha = () => {
     // 刷新验证码
+    captchaImage.value = 'path/to/new/captcha/image';
   };
 
   // 切换语言
